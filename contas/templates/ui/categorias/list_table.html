@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+Se você tivesse uma equipe trabalhando com você, é nesses arquivos .html que os front-end iriam trabalhar, basicamente.
+Que vida boa a deles né? Enquanto nós temos que cuidar de zilhões de coisas do back-end kkk
+-->
+<head>
+    <meta charset="UTF-8">
+    <title>Categorias</title>
+    <style type="text/css">
+        /**
+        Isso é CSS, você usa pra estilizar os elementos HTML em tela
+        */
+        h1 {
+            /** Isso faz o texto "CATEGORIAS" ficar centralizado na tela */
+            text-align: center;
+        }
+        .global {
+            /** Aqui eu to definindo, nesta ordem: largura, margem interna, margem externa e alinhamento centralizado */
+            width: 80%;
+            padding: 100px;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 5% 10% 5% 10%;
+            padding: 2%;
+            {#border-style: groove;#}
+            border: dashed 1px #000; /** Isso aqui faz aquela borda pontilhada aparecer envolta dos elementos na tela,
+            tenta alterar o dashed para solid ou dotted ou double e atualize a página pra ver. Outro experimento: altere
+            o #000 para #FF0000 ou #B7C, legal né? Isso se chame hexadecimal e é uma das formas que nós temos dizer ao
+            browser qual cor queremos que ele renderize na tela. Depois da uma olhada nesse site e veja os dexadecimal
+            de diferentes cores você mesma ;)
+             */
+        }
+        .lista {
+            width: 100%;
+        }
+        .lista thead tr th {
+            text-align: center;
+        }
+        .lista tbody tr td {
+            text-align: center;
+        }
+        .controls {
+            text-align: left;
+        }
+        button {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+        /**
+         * Agora isso aqui é o infame JavaScript, nesse exemplo, eu declarei uma função, que vai ser executada quando o
+         * usuário clicar no botão 'ADICIONAR +' veja que na tag onde eu declaro o botão existe uma property que diz
+         * exatamente isso: "Ao clicar execute a função redirAddNovo().
+         */
+        function redirAddNovo() {
+            //Esse comando redireciona o usuário para outra página, do seu site/sistema ou de outros, por exemplo:
+            // troque o trecho '/categorias/novo/' por 'https://www.arezzo.com.br/', atualize a página e clique no botão
+            document.location.href = '/categorias/novo/'
+        }
+        function voltar() {
+            document.location.href = '/'
+        }
+    </script>
+</head>
+<body>
+<!--
+Aqui finalmente estão os códigos que "desenham" os objetos em tela pra nós, esse primeiro H1, é o que faz o texto
+ficar grandão, como um título ou um Header, por isso H. Tente trocar o 1 por 2, 3 até 5 pra você ver as opções
+-->
+<h1>CATEGORIAS</h1>
+<h4>
+{#    {% with ":"|add:text_slice_length as slice_length %}#}
+        {{ text|safe|slice:text_slice_length }}
+{#    {% endwith %}#}
+</h4>
+<h3>
+    {{ ":"|add:text_slice_length }}
+</h3>
+<!--
+Aqui temos a tão falada DIV, como o nome sugere ela é só um quadrado/retângulo usado pra organizar, DIVidir os
+elementos em tela.
+-->
+<div class="global">
+    <div class="container">
+        <div class="controls">
+            <button type="button" onclick="voltar()">VOLTAR</button>
+            <button type="button" onclick="redirAddNovo()">ADICIONAR +</button>
+        </div>
+
+        <table border="1" class="lista">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Data</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--
+                ATENÇÃO!
+                Esse trecha abaixo com o for NÃO É HTML, os <tr>, <td> e <a> são, mas o trecho  `for cat in categorias`
+                é uma pseudo-linguagem de templates, utilizada para auxialiar na exibição dos dados que o back-end manda
+                pra serem renderizados aqui no front, essa pseudo-linguagem possui alguns recursos com os quais você já
+                está bem familiar no back: for, if, else etc
+                -->
+                {% for cat in categorias %}
+                <tr>
+                    <td>
+                        <a href="/categorias/{{ cat.id }}/">{{ cat.id }}</a>
+                    </td>
+                    <td>{{ cat.nome }}</td>
+                    <td>{{ cat.dt_criacao }}</td>
+                    <td>
+                        <a href="/categorias/{{ cat.id }}/delete/">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

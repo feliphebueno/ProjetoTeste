@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transações</title>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+        }
+        .global {
+            width: 80%;
+            height: 500px;
+            padding: 100px;
+            text-align: center;
+            align-content: center;
+        }
+        .container {
+            width: fit-content;
+            margin: 5% 10% 5% 10%;
+            padding: 2%;
+            border: dashed 1px #000;
+            display: flex;
+            flex-direction: row;
+        }
+        .fieldWrapper {
+            width: 100%;
+            margin: 10px 10px;
+            display: flex;
+            flex-direction: row;
+        }
+        .fieldWrapper .titulos {
+            width: 20%;
+            {#float: left;#}
+            text-align: right;
+            margin-right: 5px;
+        }
+        .fieldWrapper .campos {
+            width: 50%;
+            {#float: left;#}
+            text-align: left;
+            margin-left: 5px;
+        }
+        button {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>TRANSAÇÕES</h1>
+<div class="global">
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <!-- token de segurança -->
+            {% csrf_token %}
+
+            <!-- formset -->
+            <div class="fieldWrapper">
+                <div class="titulos">
+                    <label for="{{ form.descricao.id_for_label }}">Descrição:</label>
+                </div>
+                <div class="campos">
+                    {{ form.descricao }}
+                    {{ form.descricao.errors }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <div class="titulos">
+                    <label for="{{ form.valor.id_for_label }}">Valor:</label>
+                </div>
+                <div class="campos">
+                    {{ form.valor }}
+                    {{ form.valor.errors }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <div class="titulos">
+                    <label for="{{ form.categoria.id_for_label }}">Categoria:</label>
+                </div>
+                <div class="campos">
+                    {{ form.categoria }}
+                    {{ form.categoria.errors }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <div class="titulos">
+                    <br /><br />
+                    <label for="{{ form.observacoes.id_for_label }}">Observações:</label>
+                </div>
+                <div class="campos">
+                    {{ form.observacoes }}
+                    {{ form.observacoes.errors }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <div class="titulos">
+                    <label for="{{ form.data.id_for_label }}">Data/Hora:</label>
+                </div>
+                <div class="campos">
+                    <input type="datetime-local" value="{{ form.data.data|date:'Y-m-d\TH:i:s' }}" name="data" required="true" id="id_data">
+                    {{ form.data.errors }}
+                </div>
+            </div>
+            <div class="fieldWrapper">
+                <br />
+                <input type="submit" value="Salvar" />
+                <input type="button" value="voltar" onclick="document.location.href = 'http://127.0.0.1:8082/transacoes/'" />
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

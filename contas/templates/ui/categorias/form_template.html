@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Categorias</title>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+        }
+        .global {
+            width: 80%;
+            padding: 100px;
+            text-align: center;
+            align-content: center;
+        }
+        .container {
+            width: 80%;
+            margin: 5% 10% 5% 10%;
+            padding: 2%;
+            border: dashed 1px #000;
+        }
+        .lista thead tr th {
+            text-align: center;
+        }
+        .lista tbody tr td {
+            text-align: center;
+        }
+        button {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<h1>CATEGORIAS</h1>
+<div class="global">
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            <!-- token de segurança -->
+            {% csrf_token %}
+
+            <!-- formset -->
+            {{ form.as_p }}
+
+            <input type="submit" value="Salvar" />
+            <input type="button" value="voltar" onclick="document.location.href = 'http://127.0.0.1:8082/categorias/'" />
+        </form>
+    </div>
+</div>
+</body>
+</html>

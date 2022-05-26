@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transações</title>
+    <style type="text/css">
+        h1 {
+            text-align: center;
+        }
+        .global {
+            width: 80%;
+            padding: 100px;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 5% 10% 5% 10%;
+            padding: 2%;
+            border: dashed 1px #000;
+        }
+        .lista {
+            width: 100%;
+        }
+        .lista thead tr th {
+            text-align: center;
+        }
+        .lista tbody tr td {
+            text-align: center;
+        }
+        .controls {
+            text-align: left;
+        }
+        button {
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script type="text/javascript">
+        function redirAddNovo() {
+            document.location.href = '/transacoes/novo/'
+        }
+        function voltar() {
+            document.location.href = '/'
+        }
+    </script>
+</head>
+<body>
+<h1>TRANSAÇÕES</h1>
+<div class="global">
+    <div class="container">
+        <div class="controls">
+            <button type="button" onclick="voltar()">VOLTAR</button>
+            <button type="button" onclick="redirAddNovo()">ADICIONAR +</button>
+        </div>
+
+        <table border="1" class="lista">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Data</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transacao in transacoes %}
+                <tr>
+                    <td>
+                        <a href="/transacoes/{{ transacao.id }}/">{{ transacao.id }}</a>
+                    </td>
+                    <td>{{ transacao.descricao }}</td>
+                    <td>{{ transacao.valor }}</td>
+                    <!--DATE FORMAT in-line, diretamente no template-->
+                    <td>{{ transacao.data|date:"d/m/Y à\s H:i:s" }}</td>
+                    <td>
+                        <a href="/transacoes/{{ transacao.id }}/delete/">Excluir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
