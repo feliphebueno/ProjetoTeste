@@ -18,5 +18,3 @@ def listagem(request):
     data = {}
     data['transacoes'] = Transacao.objects.all()
     return render(request, 'contas/listagem.html', data)
-
-# Create your views here.
